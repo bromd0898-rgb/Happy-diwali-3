@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diwali ki Pavitra Shubhkamnayein!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for WhatsApp icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Playfair Display', serif; /* Dharmik font */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(to bottom, #ffe0b2 0%, #ffcc80 100%); /* Golden-orange gradient */
+            color: #4a2c00; /* Dark brown for text */
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden; /* Firecrackers ke liye */
+            position: relative; /* Firecrackers ke liye */
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 550px;
+            width: 100%;
+            animation: fadeInScale 1.5s ease-out;
+            position: relative;
+            z-index: 10; /* Container firecrackers ke upar rahe */
+            border: 3px solid #ff9800; /* Golden border */
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.8) translateY(-30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 2px solid #ffab40;
+        }
+        h1 {
+            font-family: 'Merriweather', serif; /* Stronger font for greeting */
+            color: #d84315; /* Deep orange */
+            margin-bottom: 15px;
+            font-size: 2.8em;
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.15);
+            animation: textPop 1.5s ease-out;
+        }
+        @keyframes textPop {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        p {
+            color: #5d4037; /* Darker brown for general text */
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px; /* Add space between input and button */
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            max-width: 300px; /* Limit input width */
+            padding: 14px;
+            border: 2px solid #ffab40; /* Golden border for input */
+            border-radius: 10px;
+            font-size: 1.1em;
+            box-sizing: border-box;
+            background-color: #fff8e1; /* Light cream input */
+            color: #4e342e;
+        }
+        .whatsapp-share-button {
+            background-color: #25D366; /* WhatsApp Green */
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: flex; /* Flex to align icon and text */
+            align-items: center;
+            gap: 10px; /* Space between icon and text */
+            text-decoration: none; /* Remove underline for anchor tag if used */
+        }
+        .whatsapp-share-button:hover {
+            background-color: #1DA851; /* Darker Green */
+            transform: translateY(-2px);
+        }
+        .whatsapp-share-button i {
+            font-size: 1.4em; /* Icon size */
+        }
+
+        .share-link-box {
+            background-color: #fff3e0; /* Lighter orange for link box */
+            border: 2px dashed #ffb74d;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            word-break: break-all;
+            display: none;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .share-link-box p {
+            margin: 0;
+            color: #8d6e63;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        #generatedLink {
+            color: #d84315;
+            font-size: 0.95em;
+            margin-top: 10px;
+        }
+
+        /* Firecracker Effect */
+        .fireworks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none; /* User interaction ko block na kare */
+            overflow: hidden;
+            z-index: 1; /* Container ke neeche rahe */
+        }
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #fff 0%, #ffeb3b 50%, transparent 80%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: fireworkExplode 2s ease-out forwards;
+        }
+        @keyframes fireworkExplode {
+            0% { transform: scale(0); opacity: 0; }
+            10% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fireworks" id="fireworksContainer"></div>
+
+    <div class="container">
+        <img src="laxmi.gif" alt="Laxmi Mata Animation">
+        
+        <h1 id="greetingText">Happy Diwali!</h1>
+        <p id="senderMessage">Aapko Diwali ki hardik shubhkamnayein!</p>
+
+        <div class="input-group" id="nameInputSection">
+            <input type="text" id="userName" placeholder="Apna shubh naam likhein...">
+            <button class="whatsapp-share-button" onclick="generateAndShareLink()">
+                <i class="fab fa-whatsapp"></i> Share karein
+            </button>
+        </div>
+
+        <div class="share-link-box" id="shareLinkBox">
+            <p>Apni shubhkamnayein copy karein:</p>
+            <p id="generatedLink"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const senderName = params.get('from');
+            const greetingText = document.getElementById('greetingText');
+            const senderMessage = document.getElementById('senderMessage');
+            const nameInputSection = document.getElementById('nameInputSection');
+
+            if (senderName) {
+                greetingText.textContent = `Happy Diwali from ${decodeURIComponent(senderName)}!`;
+                senderMessage.innerHTML = `**${decodeURIComponent(senderName)}** ki taraf se aapko Diwali ki hardik shubhkamnayein! Maa Laxmi ka ashirwad sada aap par bana rahe.`;
+                nameInputSection.style.display = 'block'; // Jisko link mila, usko bhi apna naam daalne ka option milega
+                triggerFireworks(); // Firecrackers show karein jab koi shared link se aaye
+            } else {
+                greetingText.textContent = `Happy Diwali!`;
+                senderMessage.textContent = `Apna shubh naam likh kar shubhkamnayein bhejein aur Diwali ki roshni failayein.`;
+                nameInputSection.style.display = 'block';
+            }
+        });
+
+        async function generateAndShareLink() {
+            const userNameInput = document.getElementById('userName');
+            const userName = userNameInput.value.trim();
+            const generatedLinkElement = document.getElementById('generatedLink');
+            const shareLinkBox = document.getElementById('shareLinkBox');
+
+            if (userName) {
+                const baseUrl = window.location.origin + window.location.pathname;
+                const newLink = `${baseUrl}?from=${encodeURIComponent(userName)}`;
+                const shareText = `${userName} ne aapko Diwali ki hardik shubhkamnayein bheji hain! Is link par click karke dekhein:`;
+                
+                // Display the generated link for fallback/manual copy
+                generatedLinkElement.textContent = newLink;
+                shareLinkBox.style.display = 'block';
+
+                // Attempt to use Web Share API first
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: 'Diwali ki Shubhkamnayein!',
+                            text: shareText,
+                            url: newLink,
+                        });
+                        console.log('Link successfully shared using Web Share API');
+                    } catch (error) {
+                        console.error('Sharing failed via Web Share API:', error);
+                        // Fallback to WhatsApp Web/App link if Web Share API fails or is cancelled
+                        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + newLink)}`, '_blank');
+                        alert('Web Share API fail ho gaya. WhatsApp par share karne ki koshish ki ja rahi hai.');
+                    }
+                } else {
+                    // Fallback for browsers that don't support Web Share API (e.g., many desktop browsers)
+                    // Directly open WhatsApp Web/App link
+                    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + newLink)}`, '_blank');
+                    alert('Aapka browser Web Share API ko support nahi karta. WhatsApp par link khola ja raha hai. Aap manually bhi link copy kar sakte hain.');
+                    
+                    // Also copy to clipboard as a secondary fallback
+                    navigator.clipboard.writeText(newLink).then(() => {
+                        console.log('Link copied to clipboard as fallback.');
+                    }).catch(err => {
+                        console.error('Failed to copy link to clipboard:', err);
+                    });
+                }
+
+            } else {
+                alert('Kripya apna shubh naam darj karein!');
+            }
+        }
+
+        // Firecracker function ko update kiya
+        function triggerFireworks() {
+            const fireworksContainer = document.getElementById('fireworksContainer');
+            const numFireworks = 15; // Firecrackers ki sankhya teen guna badhai (पहले 5 थी)
+            for (let i = 0; i < numFireworks; i++) { 
+                setTimeout(() => {
+                    createFirework(fireworksContainer);
+                }, i * 300); // Har 0.3 second mein ek naya firecracker (thoda tezi se)
+            }
+        }
+
+        function createFirework(container) {
+            const firework = document.createElement('div');
+            firework.classList.add('firework');
+            firework.style.left = `${Math.random() * 100}%`;
+            firework.style.top = `${Math.random() * 80 + 10}%`; // Thoda upar ki taraf
+            firework.style.animationDelay = `${Math.random() * 0.5}s`; // Thoda random delay
+            container.appendChild(firework);
+
+            firework.addEventListener('animationend', () => {
+                firework.remove();
+            });
+        }
+    </script>
+
+</body>
+</html>
+<script type="text/javascript">
+	atOptions = {
+		'key' : '4e98b6c2b04168b790ca5909864f76df',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/4e98b6c2b04168b790ca5909864f76df/invoke.js"></script>
